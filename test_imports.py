@@ -1,0 +1,12 @@
+import os, importlib, sys
+os.chdir(r"c:\Users\HP\OneDrive\Documentos\9dedos")
+print('cwd', os.getcwd())
+print('sys.path contains cwd:', os.getcwd() in sys.path)
+login = importlib.import_module('login')
+print('login.fazer_login exists:', hasattr(login, 'fazer_login'))
+crud = importlib.import_module('crud')
+print('crud __all__:', getattr(crud, '__all__', None))
+produto = importlib.import_module('crud.produto')
+estoque = importlib.import_module('crud.estoque')
+print('produto functions:', [name for name in dir(produto) if name.startswith('cadastrar') or name.startswith('listar') or name.startswith('atualizar') or name.startswith('deletar')])
+print('estoque functions:', [name for name in dir(estoque) if name.startswith('listar') or name.startswith('adicionar') or name.startswith('remover')])

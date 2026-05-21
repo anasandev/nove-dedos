@@ -1,18 +1,25 @@
-from conexao import cursor
-
-usuario = input("Usuário: ")
-senha = input("Senha: ")
-
-sql = "SELECT * FROM tb_usuario WHERE usu_email = %s AND usu_senha = %s"
+from conexao import get_connection
 
 
-valores = (usuario, senha)
+def fazer_login():
+    usuario = input("Usuário: ")
+    senha = input("Senha: ")
 
-cursor.execute(sql, valores)
+    conexao = get_connection()
+    cursor = conexao.cursor()
 
-resultado = cursor.fetchone()
+    sql = "SELECT * FROM tb_usuario WHERE usu_email = %s AND usu_senha = %s"
+    valores = (usuario, senha)
 
-if resultado:
-    print("Login realizado!")
-else:
+    cursor.execute(sql, valores)
+    resultado = cursor.fetchone()
+
+    cursor.close()
+    conexao.close()
+
+    if resultado:
+        print("Login realizado!")
+        return True
+
     print("Usuário ou senha incorretos!")
+    return False
