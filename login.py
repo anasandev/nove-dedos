@@ -2,7 +2,7 @@ from conexao import get_connection
 
 
 def fazer_login():
-    usuario = input("Usuário: ")
+    usuario = input("Email: ")
     senha = input("Senha: ")
 
     conexao = get_connection()

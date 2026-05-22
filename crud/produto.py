@@ -15,7 +15,6 @@ def cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_va
         pro_emp_id
     ) VALUES (%s, %s, %s, %s, %s, %s)
     '''
-
     dados = (
         pro_nome,
         pro_descricao,
