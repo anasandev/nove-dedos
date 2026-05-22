@@ -1,7 +1,7 @@
 from conexao import get_connection
 
 
-def cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, pro_emp_id=None):
+def cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, pro_emp_id):
     conexao = get_connection()
     cursor = conexao.cursor()
 
@@ -45,7 +45,7 @@ def listar_produtos():
     return resultados
 
 
-def atualizar_produto(pro_id, pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, pro_emp_id=None):
+def atualizar_produto(pro_id, pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, pro_emp_id):
     conexao = get_connection()
     cursor = conexao.cursor()
 

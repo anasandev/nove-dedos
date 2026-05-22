@@ -97,3 +97,48 @@ create table tb_item_pedido(
     foreign key (ipe_ped_id) references tb_pedido(ped_id)
 );
 
+#Dados ficticios para teste
+
+INSERT INTO tb_usuario (
+  usu_nome,
+  usu_email,
+  usu_senha,
+  usu_tel,
+  usu_cargo
+) VALUES (
+  'Ana',
+  'ana@gmail.com',
+  '123',
+  '(19)99999-9999',
+  'Admin'
+);
+
+INSERT INTO tb_empresa (
+    emp_nome,
+    emp_cnpj, 
+    emp_email,
+    emp_tel,
+    emp_cep, 
+    emp_rua,
+    emp_numero,
+    emp_complemento,
+    emp_bairro,
+    emp_cidade,
+    emp_estado,
+    emp_pais,
+    emp_data_criacao
+) VALUES (
+  'Central1',
+  '83.670.366/0001',
+  'central@gmail.com',
+  '(19)99999-9999',
+  '02003-440',
+  'rua um',
+  '1001',
+  'galpao 3',
+  'Jardim secreto',
+  'São Paulo',
+  'sp',
+  'Brasil',
+  '2001-09-09'
+  );

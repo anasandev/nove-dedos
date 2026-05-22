@@ -20,7 +20,8 @@ if login.fazer_login():
             pro_marca = input("Marca do produto: ")
             pro_preco = input("Preço do produto: ").replace(",", ".")
             pro_data_validade = input("Data de validade (YYYY-MM-DD): ")
-            cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade)
+            pro_emp_id = input("ID da empresa: ")
+            cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, pro_emp_id)
             print("Produto cadastrado com sucesso!")
 
         elif opcao == "2":
@@ -38,7 +39,8 @@ if login.fazer_login():
             pro_marca = input("Nova marca: ")
             pro_preco = input("Novo preço: ").replace(",", ".")
             pro_data_validade = input("Nova data de validade (YYYY-MM-DD): ")
-            atualizar_produto(pro_id, pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade)
+            pro_emp_id = input("ID da empresa: ")
+            atualizar_produto(pro_id, pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, pro_emp_id)
             print("Produto atualizado com sucesso!")
 
         elif opcao == "4":
