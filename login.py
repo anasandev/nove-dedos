@@ -1,9 +1,10 @@
 from conexao import get_connection
+import pwinput
 
 
 def fazer_login():
     usuario = input("Email: ")
-    senha = input("Senha: ")
+    senha = pwinput.pwinput(prompt='Senha: ', mask='*') #pwipwi :3
 
     conexao = get_connection()
     cursor = conexao.cursor()
@@ -14,7 +15,7 @@ def fazer_login():
     cursor.execute(sql, valores)
     resultado = cursor.fetchone()
 
-    cursor.close()
+    cursor.close( )
     conexao.close()
 
     if resultado:
