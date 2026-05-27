@@ -38,7 +38,6 @@ def relatorio_produtos_por_empresa(emp_id):
     conexao = get_connection()
     cursor = conexao.cursor()
 
-    # Primeiro, obter informações da empresa
     emp_comando = 'SELECT emp_nome, emp_cnpj FROM tb_empresa WHERE emp_id = %s'
     cursor.execute(emp_comando, (emp_id,))
     empresa_info = cursor.fetchone()
@@ -48,7 +47,6 @@ def relatorio_produtos_por_empresa(emp_id):
         conexao.close()
         return None, []
 
-    # Depois, obter produtos e estoque
     prod_comando = '''
     SELECT 
         p.pro_id,

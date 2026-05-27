@@ -1,6 +1,6 @@
 from crud import *
+from crud import relatorio
 import login
-import relatorio
 from utils.data import formatar_data
 
 
@@ -159,9 +159,14 @@ def menu_produto():
             pro_preco = input("Preço do produto: ").replace(",", ".")
             pro_data_validade = formatar_data(
                 input("Data de validade (dd/mm/aaaa): "))
+            qtd_inicial_raw = input("Quantidade inicial (opcional, deixar em branco para 0): ")
+            try:
+                qtd_inicial = int(qtd_inicial_raw) if qtd_inicial_raw.strip() != "" else 0
+            except Exception:
+                qtd_inicial = 0
 
             try:
-                cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, emp_id)
+                cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, emp_id, qtd_inicial)
                 print("✓ Produto cadastrado com sucesso!")
             except Exception as e:
                 print(f"✗ Erro ao cadastrar produto: {e}")
@@ -181,17 +186,25 @@ def menu_produto():
 
         elif opcao == "3":
             pro_id = input("\nDigite o ID do produto a atualizar: ")
-            try:
-                pro_nome = input("Novo nome: ")
-                pro_descricao = input("Nova descrição: ")
-                pro_marca = input("Nova marca: ")
-                pro_preco = input("Novo preço: ").replace(",", ".")
-                pro_data_validade = formatar_data(
-                input("Data de validade (dd/mm/aaaa): "))
-                atualizar_produto(pro_id, pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, emp_id)
-                print("✓ Produto atualizado com sucesso!")
-            except Exception as e:
-                print(f"✗ Erro ao atualizar produto: {e}")
+            produto = obter_produto_por_id(pro_id)
+            if produto:
+                try:
+                    pro_nome = input(f"Nome ({produto[1]}): ") or produto[1]
+                    pro_descricao = input(f"Descrição ({produto[2]}): ") or produto[2]
+                    pro_marca = input(f"Marca ({produto[3]}): ") or produto[3]
+                    preco_raw = input(f"Preço ({produto[4]:.2f}): ")
+                    pro_preco = float(preco_raw.replace(",", ".")) if preco_raw.strip() != "" else produto[4]
+                    data_raw = input(f"Data de validade ({produto[5]}): ")
+                    pro_data_validade = formatar_data(data_raw) if data_raw.strip() != "" else produto[5]
+                    emp_id_atual = input(f"Empresa ID ({produto[6]}): ")
+                    pro_emp_id = int(emp_id_atual) if emp_id_atual.strip() != "" else produto[6]
+
+                    atualizar_produto(pro_id, pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, pro_emp_id)
+                    print("✓ Produto atualizado com sucesso!")
+                except Exception as e:
+                    print(f"✗ Erro ao atualizar produto: {e}")
+            else:
+                print("✗ Produto não encontrado.")
 
         elif opcao == "4":
             pro_id = input("\nDigite o ID do produto a deletar: ")
@@ -202,6 +215,55 @@ def menu_produto():
                 print(f"✗ Erro ao deletar produto: {e}")
 
         elif opcao == "5":
+            break
+
+        else:
+            print("Opção inválida!")
+
+
+def menu_estoque():
+    """Menu para movimentação e consulta de estoque."""
+    while True:
+        print("\n===== GESTÃO DE ESTOQUE =====")
+        print("1 - Listar estoque")
+        print("2 - Entrada de estoque")
+        print("3 - Saída de estoque")
+        print("4 - Voltar ao menu principal")
+
+        opcao = input("\nEscolha: ")
+
+        if opcao == "1":
+            print("\n--- ESTOQUE ATUAL ---")
+            registros = listar_estoque()
+            if registros:
+                print(f"\n{'ID':<5} | {'Produto':<30} | {'Qtd':<6}")
+                print("-" * 50)
+                for registro in registros:
+                    print(f"{registro[1]:<5} | {registro[2]:<30} | {registro[3]:<6}")
+            else:
+                print("Nenhum produto em estoque.")
+
+        elif opcao == "2":
+            print("\n--- ENTRADA DE ESTOQUE ---")
+            pro_id = input("ID do produto: ")
+            quantidade = input("Quantidade a adicionar: ")
+            try:
+                adicionar_estoque(int(pro_id), int(quantidade))
+                print("✓ Estoque atualizado com sucesso!")
+            except Exception as e:
+                print(f"✗ Erro ao adicionar estoque: {e}")
+
+        elif opcao == "3":
+            print("\n--- SAÍDA DE ESTOQUE ---")
+            pro_id = input("ID do produto: ")
+            quantidade = input("Quantidade a remover: ")
+            try:
+                remover_estoque(int(pro_id), int(quantidade))
+                print("✓ Saída de estoque registrada com sucesso!")
+            except Exception as e:
+                print(f"✗ Erro ao remover estoque: {e}")
+
+        elif opcao == "4":
             break
 
         else:
@@ -307,8 +369,9 @@ if login.fazer_login():
         print("=" * 50)
         print("1 - Gestão de Empresa")
         print("2 - Gestão de Produtos")
-        print("3 - Relatórios")
-        print("4 - Sair")
+        print("3 - Gestão de Estoque")
+        print("4 - Relatórios")
+        print("5 - Sair")
 
         opcao = input("\nEscolha: ")
 
@@ -317,8 +380,10 @@ if login.fazer_login():
         elif opcao == "2":
             menu_produto()
         elif opcao == "3":
-            menu_relatorios()
+            menu_estoque()
         elif opcao == "4":
+            menu_relatorios()
+        elif opcao == "5":
             print("Até logo!")
             break
         else:
