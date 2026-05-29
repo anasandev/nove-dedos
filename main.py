@@ -76,6 +76,7 @@ def menu_empresa():
         elif opcao == "4":
             emp_id = input("\nDigite o ID da empresa a atualizar: ")
             empresa = obter_empresa_por_id(emp_id)
+            
             if empresa:
                 print("\n--- ATUALIZAÇÃO DE EMPRESA ---")
                 emp_nome = input(f"Nome ({empresa[1]}): ") or empresa[1]
@@ -140,7 +141,7 @@ def menu_produto():
     except Exception as e:
         print(f"✗ Erro: {e}")
         return
-
+    
     while True:
         print(f"\n===== GESTÃO DE PRODUTOS - {empresa[1]} =====")
         print("1 - Cadastrar produto")

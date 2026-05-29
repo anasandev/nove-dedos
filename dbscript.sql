@@ -1,5 +1,5 @@
-CREATE DATABASE db_9dedos;
-USE db_9dedos;
+CREATE DATABASE db_stokky;
+USE db_stokky;
 
 -- EMPRESA
 CREATE TABLE tb_empresa (

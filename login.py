@@ -1,7 +1,7 @@
 from conexao import get_connection
 import pwinput
 
-
+# Define a função de login, que solicita o email e senha do usuário, verifica no banco de dados e retorna True se o login for bem-sucedido ou False caso contrário
 def fazer_login():
     usuario = input("Email: ")
     senha = pwinput.pwinput(prompt='Senha: ', mask='*') #pwipwi :3

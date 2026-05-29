@@ -1,10 +1,9 @@
-# Sistema 9Dedos
+# Sistema Stokky
 
-Sistema de controle de estoque desenvolvido em Python + MySQL.
+Sistema de controle de estoque, desenvolvido em Python + MySQL.
 
 ## Funcionalidades
 - Login
-- CRUD de produtos
 - Controle de estoque
 - Relatórios
 
@@ -16,8 +15,8 @@ Sistema de controle de estoque desenvolvido em Python + MySQL.
 
 obs.: database é local, por isso lembre de conferir os parametros de conexao.py
 
-pip install mysql-connector-python
+'pip install mysql-connector-python or python' -m 'pip install mysql-connector-python'
 
-pip install pwinput
+'pip install pwinput'
 
-python main.py
+'python main.py' - Executa o projeto a partir da main.py

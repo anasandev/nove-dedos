@@ -1,7 +1,7 @@
 from conexao import get_connection
 from crud.estoque import inicializar_estoque
 
-
+#def inicia a função de cadastro de produto, recebe os dados do produto e a quantidade inicial para o estoque
 def cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, pro_emp_id, quantidade_inicial=0):
     conexao = get_connection()
     cursor = conexao.cursor()
@@ -29,8 +29,9 @@ def cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_va
     conexao.commit()
 
     pro_id = cursor.lastrowid
+    # Tenta converter a quantidade inicial para inteiro, se falhar, define como 0
     try:
-        quantidade = int(quantidade_inicial or 0)
+        quantidade = int(quantidade_inicial or 0)    
     except Exception:
         quantidade = 0
 
@@ -52,6 +53,7 @@ def listar_produtos():
     cursor.close()
     conexao.close()
 
+    # Retorna a lista de produtos obtida do banco de dados
     return resultados
 
 

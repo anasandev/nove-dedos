@@ -1,3 +1,4 @@
+# Este arquivo é para testar se os módulos estão sendo importados corretamente e se as funções estão acessíveis
 import os, importlib, sys
 os.chdir(r"c:\Users\HP\OneDrive\Documentos\9dedos")
 print('cwd', os.getcwd())
